@@ -13,6 +13,6 @@ export default {
     require('@tailwindcss/forms'),
   ],
   daisyui: {
-    themes: ["light", "dark"],
+    themes: ["nord"],
   },
 } 

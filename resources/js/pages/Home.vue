@@ -1,6 +1,6 @@
 <template>
     <div class="flex flex-col min-h-screen items-center justify-center">
-        <HomeLayout/>
+        <MainNavLayout/>
         <main class="flex-1">
             <section class="w-full py-12 md:py-18 lg:py-24 xl:py-32">
             <div class="container px-4 md:px-6">
@@ -128,6 +128,6 @@
 </template>
 
 <script setup>
-import HomeLayout from '../layouts/HomeLayout.vue';
+import MainNavLayout from '../layouts/MainNavLayout.vue';
 import FooterLayout from '../layouts/FooterLayout.vue';
 </script>

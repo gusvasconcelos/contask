@@ -10,5 +10,6 @@
     </head>
     <body class="font-sans antialiased">
         @inertia
+        <div id="toast"></div>
     </body>
 </html>

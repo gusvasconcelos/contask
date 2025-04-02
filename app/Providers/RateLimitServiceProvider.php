@@ -2,6 +2,7 @@
 
 namespace App\Providers;
 
+use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Cache\RateLimiting\Limit;
@@ -24,7 +25,7 @@ class RateLimitServiceProvider extends ServiceProvider
     {
         RateLimiter::for('login', function (Request $request) {
             return Limit::perMinute(5)
-                ->by($request->ip());
+                ->by(Str::transliterate(Str::lower($request->email) . '|' . $request->ip()));
         });
     }
 }

@@ -1,62 +1,52 @@
 <script setup lang="ts">
 import Navbar from '@/components/Navbar.vue';
-import { useToast } from '@/composables/useToast';
-import { useForm, usePage } from '@inertiajs/vue3';
-
-const user = usePage().props.auth.user;
-
-const toast = useToast();
-
-const logout = () => {
-    useForm({}).post(route('logout'), {
-        onSuccess: () => {
-            toast.success('Logout realizado com sucesso!');
-        },
-        onError: () => {
-            toast.error('Erro ao realizar logout!');
-        },
-    });
-};
+import Sidebar from '@/components/Sidebar.vue';
 </script>
 
 <template>
-    <div class="relative min-h-screen">
-        <!-- Navbar - fixed at top -->
+    <div class="drawer lg:drawer-open">
+        <input id="main-drawer" type="checkbox" class="drawer-toggle" />
+
+        <!-- Navbar - Fixed on top -->
         <Navbar
             :showSearch="true"
             :showDrawerButton="true"
-            class="fixed left-0 right-0 top-0 z-30"
+            class="fixed left-0 right-0 top-0 z-50 border-b bg-base-100 shadow-sm"
         />
 
-        <div class="drawer lg:drawer-open">
-            <!-- Drawer toggle checkbox -->
-            <input id="drawer" type="checkbox" class="drawer-toggle" />
+        <!-- Page content -->
+        <div class="drawer-content flex flex-col">
+            <!-- Navbar spacer -->
+            <div class="h-16"></div>
 
-            <!-- Page content -->
-            <div class="drawer-content flex min-h-screen flex-col bg-base-200">
-                <!-- Main content with padding for navbar -->
-                <main class="flex-1 p-6 pt-20">
-                    <div class="mx-auto w-full">
-                        <slot />
-                    </div>
-                </main>
-            </div>
+            <main class="flex-1 overflow-y-auto bg-base-200 p-6">
+                <div class="mx-auto w-full">
+                    <slot />
+                </div>
+            </main>
+        </div>
+
+        <!-- Sidebar -->
+        <div class="drawer-side z-40">
+            <label
+                for="main-drawer"
+                aria-label="close sidebar"
+                class="drawer-overlay"
+            ></label>
+            <Sidebar class="pt-16" />
         </div>
     </div>
 </template>
 
-<style>
-.drawer {
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    overflow-y: auto;
+<style scoped>
+.drawer-side {
+    position: fixed;
+    height: 100vh;
 }
 
-/* Ajusta o padding do conteúdo para não ficar sob o footer */
-.drawer-content {
-    padding-bottom: 4rem; /* Ajuste conforme a altura do seu footer */
+@media (min-width: 1024px) {
+    .drawer-side {
+        position: sticky;
+    }
 }
 </style>

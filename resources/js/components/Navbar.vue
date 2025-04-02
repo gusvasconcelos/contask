@@ -1,5 +1,8 @@
 <script setup lang="ts">
+import { useToast } from '@/composables/useToast';
 import { useForm, usePage } from '@inertiajs/vue3';
+
+const toast = useToast();
 
 interface User {
     id: number;
@@ -23,7 +26,14 @@ const user = usePage().props.auth.user as User;
 const isAuthenticated = !!user;
 
 const logout = () => {
-    useForm({}).post(route('logout'));
+    useForm({}).post(route('logout'), {
+        onError: () => {
+            toast.error('Erro ao realizar logout!');
+        },
+        onSuccess: () => {
+            toast.success('Logout realizado com sucesso!');
+        },
+    });
 };
 </script>
 
